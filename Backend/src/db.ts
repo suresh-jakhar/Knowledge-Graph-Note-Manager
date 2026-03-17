@@ -1,8 +1,13 @@
+
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+
+const MONGO_URI = process.env.MONGO_URI || "";
 
 export async function connectDB() {
   try {
-    await mongoose.connect("mongodb+srv://Suresh_DB_USER1:Suresh1234567@cluster0.ypefo8y.mongodb.net/myDatabase?retryWrites=true&w=majority");
+    if (!MONGO_URI) throw new Error("MongoDB URI not set in environment variables");
+    await mongoose.connect(MONGO_URI);
     console.log("MongoDB connected successfully.");
   } catch (error) {
     console.error("MongoDB connection error:", error);
@@ -15,9 +20,17 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
+UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
 const TagSchema = new mongoose.Schema({
   title: { type: String, required: true },
 });
+
 
 const ContentSchema = new mongoose.Schema({
   link: { type: String, required: true },
@@ -27,10 +40,12 @@ const ContentSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
+
 const LinkSchema = new mongoose.Schema({
   hash: { type: String, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, unique: true },
 });
+
 
 export const UserModel = mongoose.model("User", UserSchema);
 export const TagModel = mongoose.model("Tag", TagSchema);

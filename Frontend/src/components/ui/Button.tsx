@@ -1,4 +1,4 @@
-import React, { type ReactElement, type ReactEventHandler } from "react";
+import { type ReactElement } from "react";
 
 export interface ButtonProps {
     variant: "primary" | "secondary";
