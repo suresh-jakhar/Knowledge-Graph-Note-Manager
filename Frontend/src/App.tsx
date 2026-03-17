@@ -11,9 +11,9 @@ function App() {
 
   return(
     <>
-    <Button size="small"  variant = "primary" text = "Add" startIcon={<PlusIcon />}/>
-    <Button size="small"  variant = "primary" text = "Add" startIcon={<PlusIcon />}/>
-    <Button size="small"  variant = "primary" text = "Add" startIcon={<PlusIcon />}/>
+    <Button size="small"  variant = "primary" text = "Add" startIcon={<PlusIcon size="large" />}/>
+    <Button size="medium"  variant = "primary" text = "Add" startIcon={<PlusIcon />}/>
+    <Button size="large"  variant = "primary" text = "Add" startIcon={<PlusIcon />}/>
 
     </>
   )

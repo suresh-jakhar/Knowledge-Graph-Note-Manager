@@ -2,7 +2,7 @@ import React, { type ReactElement, type ReactEventHandler } from "react";
 
 export interface ButtonProps {
     variant: "primary" | "secondary";
-    size?: "small" | "medium" | "large";
+    size: "small" | "medium" | "large";
     text: string;
     startIcon?: ReactElement;
     endIcon?: ReactElement;
@@ -28,7 +28,7 @@ const baseStyles = "rounded flex items-center gap-2 font-medium flex";
 export const Button = (props : ButtonProps) =>{
     return (
         <button
-            className={`${variantStyles[props.variant]} ${baseStyles} ${sizeStyles}`}
+            className={`${variantStyles[props.variant]} ${baseStyles} ${sizeStyles[props.size]}`}
 
         
         
