@@ -4,6 +4,7 @@ interface ButtonProps {
   variant: "primary" | "secondary";
   text: string;
   startIcon?: ReactElement;
+  onClick?: () => void;
 }
 
 const baseStyle = "px-4 py-2 rounded-md font-light flex items-center gap-3 whitespace-nowrap"
@@ -13,9 +14,10 @@ const variantStyles = {
   secondary: "bg-purple-200 text-purple-500"
 };
 
-export function Button({ variant, text, startIcon }: ButtonProps) {
+export function Button({ variant, text, startIcon,onClick }: ButtonProps) {
   return (
     <button
+    onClick={onClick}
     className={`${baseStyle} ${variantStyles[variant]}`}
     
     >
