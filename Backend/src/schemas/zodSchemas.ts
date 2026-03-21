@@ -11,8 +11,12 @@ export const signinSchema = z.object({
 }).strict();
 
 export const createContentSchema = z.object({
-  link: z.string().url(),
-  type: z.enum(["note", "article", "other"]),
+  link: z.string().refine((val) => {
+  return val.includes("youtube.com") || val.includes("twitter.com");
+  }, {
+  message: "Only YouTube or Twitter links allowed"
+  }),
+  type: z.enum(["youtube", "twitter"]),
   title: z.string().min(1),
   tags: z.array(z.string()).default([]),
 }).strict();

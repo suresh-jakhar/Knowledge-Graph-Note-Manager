@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ import { validate } from "./schemas/validate.js";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(contentTypeCheck);
 
 app.use(
@@ -54,7 +56,10 @@ app.post("/api/v1/signup", validate(signupSchema), async (req, res) => {
   try {
     const existingUser = await UserModel.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({
+      error: "User already exists",
+      message: "User already exists"
+      });
     }
 
     const user = await UserModel.create({
@@ -126,8 +131,9 @@ app.post(
         message: "Content created",
         content
       });
-    } catch {
-      res.status(500).json({ error: "Failed to create content" });
+    } catch (err: any) {
+    console.log("ERROR:", err);  
+    res.status(500).json({ error: err.message || "Failed to create content" });
     }
   }
 );

@@ -36,7 +36,7 @@ const TagSchema = new mongoose.Schema({
 
 const ContentSchema = new mongoose.Schema({
   link: { type: String, required: true },
-  type: { type: String, required: true, enum: ["note", "article", "other"] },
+  type: { type: String, required: true, enum: ["youtube", "twitter"] },
   title: { type: String, required: true },
   tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
