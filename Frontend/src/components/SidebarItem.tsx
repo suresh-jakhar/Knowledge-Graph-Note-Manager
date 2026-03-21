@@ -8,7 +8,7 @@ interface sideBarItems{
 export function SideBarItem({ text, icon }:sideBarItems ){
 
     return (
-        <div className="flex items-center gap-2 p-2 text-gray-800">
+        <div className="flex items-center gap-2 p-2 text-gray-800 py-2 cursor-pointer hover:bg-gray-200 transition-all">
             <div className="pt-1">{icon}</div>
             <div className="pt-1 font-medium text-base">{text}</div>
         </div>
